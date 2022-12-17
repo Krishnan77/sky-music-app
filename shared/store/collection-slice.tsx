@@ -83,6 +83,7 @@ interface AlbumProps {
   loading: boolean;
   album: SongInitialProps | any;
   error: object;
+  searchVal: string;
 }
 const initialState: AlbumProps = {
   loading: false,
@@ -152,6 +153,7 @@ const initialState: AlbumProps = {
     ],
   },
   error: {},
+  searchVal: "",
 };
 
 export const fetchSongs = createAsyncThunk("collectionData", colletionData);
@@ -159,7 +161,11 @@ export const fetchSongs = createAsyncThunk("collectionData", colletionData);
 const songSlice = createSlice({
   name: "album",
   initialState,
-  reducers: {},
+  reducers: {
+    searchValue: (state, { payload }: any) => {
+      state.searchVal = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSongs.pending, (state) => {

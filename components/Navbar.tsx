@@ -2,13 +2,25 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { albumActions, fetchSongs } from "../shared/store/collection-slice";
+import Link from "next/link";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   return (
     <Container>
       <div className="search__bar">
         <FaSearch />
-        <input type="text" placeholder="Artists, songs, or podcasts" />
+        <Link href="/search">
+          <input
+            type="text"
+            placeholder="Artists, songs, or podcasts"
+            onChange={(e: React.ChangeEvent<HTMLInputElement> | any) =>
+              dispatch(albumActions.searchValue(e.target.value))
+            }
+          />
+        </Link>
       </div>
       <div className="avatar">
         <a href="#">
@@ -40,6 +52,13 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    @media screen and (max-width: 900px) {
+      width: 50%;
+    }
+    @media screen and (max-width: 500px) {
+      width: 50%;
+    }
+
     input {
       border: none;
       height: 2rem;

@@ -2,21 +2,21 @@ import React from "react";
 import styled from "styled-components";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
+import Link from "next/link";
 
 const Sidebar = () => {
   return (
     <Container>
       <div className="top__links">
         <div className="logo">
-          <img
-            src="sky_icon.jpg"
-            alt="SKY"
-          />
+          <img className="image" src="sky_icon.jpg" alt="SKY" />
         </div>
         <ul>
           <li>
             <MdHomeFilled />
-            <span>Home</span>
+            <Link href="/">
+              <span>Home</span>
+            </Link>
           </li>
           <li>
             <MdSearch />
@@ -46,10 +46,27 @@ const Container = styled.div`
     flex-direction: column;
     .logo {
       text-align: center;
-      margin: 1rem 0;
-      img {
-        max-inline-size: 80%;
-        block-size: auto;
+      margin: 0.2rem 0;
+      .image {
+        width: 100px;
+        @media screen and (max-width: 900px) {
+          width: 80px;
+          text-align: center;
+          margin-left: 33px;
+        }
+        @media screen and (max-width: 500px) {
+          width: 50px;
+          text-align: center;
+          margin-left: 13px;
+        }
+      }
+      @media screen and (max-width: 900px) {
+        width: 50px;
+        text-align: center;
+      }
+      @media screen and (max-width: 500px) {
+        width: 20px;
+        text-align: center;
       }
     }
     ul {
@@ -58,6 +75,19 @@ const Container = styled.div`
       flex-direction: column;
       gap: 1rem;
       padding: 1rem;
+      @media screen and (max-width: 900px) {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        font-size: large;
+      }
+      @media screen and (max-width: 500px) {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        text-align: center;
+        font-size: smaller;
+      }
       li {
         display: flex;
         gap: 1rem;

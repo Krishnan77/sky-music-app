@@ -26,8 +26,6 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const Container = styled.div`
-  max-width: 100vw;
-  max-height: 100vh;
   /* overflow: hidden; */
   display: grid;
   /* grid-template-rows: 85vh 15vh; */
@@ -49,6 +47,9 @@ const Container = styled.div`
           background-color: rgba(255, 255, 255, 0.6);
         }
       }
+    }
+    .body__contents {
+      height: 100vh;
     }
   }
 `;
