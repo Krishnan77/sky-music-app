@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Slider from "react-slick";
 
 const Categoryfilter = ({ filter, setData }: any) => {
   const [open, setOpen] = useState<React.SetStateAction<boolean> | boolean[]>(
@@ -10,10 +11,6 @@ const Categoryfilter = ({ filter, setData }: any) => {
   >();
   const musicData = filter?.entry;
 
-  const toggle = () => {
-    setOpen(!open);
-  };
-
   const filterData = musicData?.map(
     (category: { category: { attributes: { term: string } } }) =>
       category.category.attributes.term
@@ -22,7 +19,6 @@ const Categoryfilter = ({ filter, setData }: any) => {
   const distinctCategory = filterData?.filter(
     (item: [], index: number) => filterData.indexOf(item) === index
   );
-  console.log("distinctCategory", distinctCategory);
 
   const handleCategoryFilter = (categoryName: string[]) => {
     const category = musicData?.filter(
@@ -31,44 +27,66 @@ const Categoryfilter = ({ filter, setData }: any) => {
     );
     setData(category);
   };
+  const settings = {
+    // dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 3,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   return (
     <>
-      <div className="dropDown">
-        <div
-          className="dropDownMenu"
-          style={{ color: "white" }}
-          onClick={toggle}
-        >
-          dropdown
-          {open &&
-            distinctCategory.map((a: any) => {
+      <Container>
+        <h1 className="header_head">Genre</h1>
+        <div className="top-albums">
+          <Slider {...settings}>
+            {distinctCategory?.map((item: string[], index: number) => {
               return (
-                <>
-                  <li
+                <div className="category">
+                  <div
+                    className="genre-button"
+                    key={index}
                     onClick={() => {
-                      setActive(a);
-                      handleCategoryFilter(a);
+                      setActive(item);
+                      handleCategoryFilter(item);
                     }}
                   >
-                    {a}
-                  </li>
-                </>
+                    {item}
+                  </div>
+                </div>
               );
             })}
-          {/* {open &&
-          {distinctCategory.map((item : string[]) => {
-          <div>
-            <li  onClick={() => {
-            setActive(item);
-            handleCategoryFilter(item);
-             }}>
-              {item}
-            </li>
-          </div>
-            })} */}
+          </Slider>
         </div>
-      </div>
+      </Container>
     </>
   );
 };
@@ -76,26 +94,34 @@ const Categoryfilter = ({ filter, setData }: any) => {
 export default Categoryfilter;
 
 const Container = styled.div`
-  /* display: flex;
-flex-direction: row; */
-  /* .top-albums{
-
-  background-color: aqua;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 50%;
-} */
-  .genre-button {
+  .top-albums {
+    width: 65rem;
+    margin-left: 40px;
+  }
+  .category {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header_head {
+    color: white;
     padding: 1rem;
-    font-weight: 600;
-    font-family: sans-serif;
-    border: none;
-    border-radius: 2rem;
-    background-color: transparent;
+  }
+  .genre-button {
     cursor: pointer;
-    border: solid 0.5px;
+    padding: 0.5rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid black;
+    color: white;
+    background-color: #0e0d0d;
+
     @media screen and (max-width: 900px) {
-      width: 80%;
       font-size: 0.5rem;
       white-space: pre-wrap;
     }

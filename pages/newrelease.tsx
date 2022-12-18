@@ -1,5 +1,5 @@
-import Head from "next/head";
 import React from "react";
+import Head from "next/head";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Body from "../components/Body";
@@ -8,10 +8,9 @@ import Search from "../components/Search";
 import Sidebar from "../components/Sidebar";
 import getStore, { fetchSongs } from "../shared/store/collection-slice";
 import { Container } from "../styles/card.style";
+import NewRelease from "../components/NewRelease";
 
-const search = () => {
-  const { album } = useSelector((state: any) => state.songReducer) || [];
-  const searchValue = useSelector((state: any) => state.songReducer.searchVal);
+const newrelease = () => {
   return (
     <div>
       <Head>
@@ -22,13 +21,14 @@ const search = () => {
         />
         <link rel="icon" href="skylogo.png" />
       </Head>
+
       <Container>
         <div className="music__body">
           <Sidebar />
           <div className="body">
             <Navbar />
             <div className="body__contents">
-              <Search />
+              <NewRelease />
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@ const search = () => {
   );
 };
 
-export default search;
+export default newrelease;
 
 export async function getServerSideProps() {
   const store = getStore();

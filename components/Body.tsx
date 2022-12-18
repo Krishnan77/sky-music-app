@@ -1,62 +1,125 @@
 import React, { useState, useEffect } from "react";
 // import { RootState } from "../shared/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Categoryfilter from "./Categories/Categoryfilter";
 import styled from "styled-components";
+import { MdFavorite } from "react-icons/md";
+import { albumActions } from "../shared/store/collection-slice";
+import Favorite from "./Favorites/Favorite";
 
 const Body = () => {
   const [data, setData] = useState([]);
+  const [showMore, setShowMore] = useState(8);
+  const [clicked, setClicked] = useState(false);
 
   const { album, loading } =
     useSelector((state: any) => state.songReducer) || [];
   const mainSongData = album?.entry;
 
+  const dispatch = useDispatch();
+
+  const favList = useSelector((state: any) => state.songReducer.favorite);
+
   useEffect(() => {
     setData(mainSongData);
   }, [mainSongData]);
   return (
-    <Container>
-      <Categoryfilter filter={album} setData={setData} />
-      <div className="song_list">
-        {data?.map(
-          (entry: {
-            "im:image":
-              | {
-                  label: string;
-                }
-              | any;
-            title: {
-              label: string;
-            };
-            link: {
-              attributes: {
-                href: string;
+    <>
+      <Container>
+        {favList.length > 0 && <Favorite />}
+
+        <Categoryfilter filter={album} setData={setData} />
+        <h1 className="header_head">TOP 100 Songs </h1>
+        <div className="song_list">
+          {data?.slice(0, showMore).map(
+            (entry: {
+              "im:image":
+                | {
+                    label: string;
+                  }
+                | any;
+              title: {
+                label: string;
               };
-            };
-          }) => {
-            return (
-              <div className="album-entry">
-                {/* <div className="overlayer">
+              id: {
+                label: string;
+              };
+              link: {
+                attributes: {
+                  href: string;
+                };
+              };
+            }) => {
+              const isFavorite = favList.find((item: any) => {
+                return item.id.label === entry.id.label;
+              });
+              return (
+                <div className="album-entry">
+                  {/* <div className="overlayer">
               <i className="far fa-play-circle"></i>
             </div> */}
-                <img
-                  src={entry["im:image"][2].label}
-                  alt="album-thumbnail"
-                  className="album-thumbnail"
-                />
-                <a
-                  href={entry.link.attributes.href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {entry.title.label}
-                </a>
-              </div>
-            );
-          }
-        )}
-      </div>
-    </Container>
+                  <div className="container">
+                    <img
+                      src={entry["im:image"][2].label}
+                      alt="album-thumbnail"
+                      className="album-thumbnail"
+                    />
+                    {/* <div  className={clicked ?"fav_clicked" :"fav_icon" }>
+                <MdFavorite onClick={()=> {setClicked(!clicked)}} />
+                </div> */}
+                    {isFavorite ? (
+                      <div className="heart_icon">
+                        <img
+                          src="red-heart.svg"
+                          onClick={() => {
+                            dispatch(
+                              albumActions.removeFavorite(entry.id.label)
+                            );
+                            setClicked(false);
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="heart_icon">
+                        <img
+                          src="heart.svg"
+                          onClick={() => {
+                            dispatch(albumActions.addToFavorites(entry));
+                            setClicked(true);
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="description">
+                    <a
+                      href={entry.link.attributes.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {entry.title.label}
+                    </a>
+                  </div>
+                </div>
+              );
+            }
+          )}
+        </div>
+      </Container>
+      {showMore <= data?.length && (
+        <StyledPaginateButton data-testid="pagination">
+          <button
+            onClick={() => {
+              setShowMore((prevValue) => prevValue + 8);
+            }}
+            type="button"
+            className="show-more"
+          >
+            Load More
+          </button>
+        </StyledPaginateButton>
+      )}
+    </>
   );
 };
 
@@ -65,6 +128,10 @@ export default Body;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  .header_head {
+    color: white;
+    padding: 1rem;
+  }
 
   .song_list {
     padding: 6%;
@@ -99,7 +166,7 @@ const Container = styled.div`
   .album-entry {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    overflow: hidden;
     align-items: center;
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
       rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
@@ -109,5 +176,44 @@ const Container = styled.div`
     font-family: sans-serif;
     font-weight: 600;
     border-radius: 1rem;
+  }
+  .container {
+    position: relative;
+    width: 100%;
+  }
+  .description {
+    padding: 15px;
+  }
+
+  .heart_icon {
+    z-index: 1;
+    background-color: transparent;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    bottom: 0;
+    right: 0;
+    padding: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+`;
+const StyledPaginateButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .show-more {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    padding: 1rem;
+    width: 10rem;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
   }
 `;

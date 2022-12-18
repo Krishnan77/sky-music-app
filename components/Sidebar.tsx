@@ -20,7 +20,9 @@ const Sidebar = () => {
           </li>
           <li>
             <MdSearch />
-            <span>Search</span>
+            <Link href="/newrelease">
+              <span>New Releases</span>
+            </Link>
           </li>
           <li>
             <IoLibrary />

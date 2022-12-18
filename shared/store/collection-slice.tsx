@@ -84,6 +84,7 @@ interface AlbumProps {
   album: SongInitialProps | any;
   error: object;
   searchVal: string;
+  favorite: any;
 }
 const initialState: AlbumProps = {
   loading: false,
@@ -154,6 +155,7 @@ const initialState: AlbumProps = {
   },
   error: {},
   searchVal: "",
+  favorite: [],
 };
 
 export const fetchSongs = createAsyncThunk("collectionData", colletionData);
@@ -164,6 +166,14 @@ const songSlice = createSlice({
   reducers: {
     searchValue: (state, { payload }: any) => {
       state.searchVal = payload;
+    },
+    addToFavorites: (state, { payload }) => {
+      state.favorite = [...state.favorite, payload];
+    },
+    removeFavorite: (state, { payload }) => {
+      state.favorite = state.favorite.filter(
+        (item: any) => item.id.label !== payload
+      );
     },
   },
   extraReducers: (builder) => {
