@@ -3,13 +3,16 @@ import styled from "styled-components";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
 import Link from "next/link";
+import { BiPodcast } from "react-icons/bi";
+import { GiLoveSong } from "react-icons/gi";
+import { AiOutlineDownload } from "react-icons/ai";
 
 const Sidebar = () => {
   return (
     <Container>
       <div className="top__links">
         <div className="logo">
-          <img className="image" src="sky_icon.jpg" alt="SKY" />
+          <img className="image" src="sky.png" alt="SKY" />
         </div>
         <ul>
           <li>
@@ -25,8 +28,16 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <IoLibrary />
-            <span>Your Library</span>
+            <BiPodcast />
+            <span>Podcasts</span>
+          </li>
+          <li>
+            <GiLoveSong />
+            <span>Old Songs</span>
+          </li>
+          <li>
+            <AiOutlineDownload />
+            <span>Install our app</span>
           </li>
         </ul>
       </div>

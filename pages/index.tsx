@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { fetchSongs } from "../shared/store/collection-slice";
@@ -15,7 +14,7 @@ export default function Home() {
       <Head>
         <title>Sky Music App</title>
         <meta name="keywords" content="music app, music , sky" />
-        <link rel="icon" href="skylogo.png" />
+        <link rel="icon" href="sky.png" />
       </Head>
       <HomeScreen />
     </div>

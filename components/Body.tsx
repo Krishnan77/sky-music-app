@@ -6,10 +6,11 @@ import styled from "styled-components";
 import { MdFavorite } from "react-icons/md";
 import { albumActions } from "../shared/store/collection-slice";
 import Favorite from "./Favorites/Favorite";
+import OldSongs from "./Song types/OldSongs";
 
 const Body = () => {
   const [data, setData] = useState([]);
-  const [showMore, setShowMore] = useState(8);
+  const [showMore, setShowMore] = useState(12);
   const [clicked, setClicked] = useState(false);
 
   const { album, loading } =
@@ -27,8 +28,9 @@ const Body = () => {
     <>
       <Container>
         {favList.length > 0 && <Favorite />}
-
+        <OldSongs />
         <Categoryfilter filter={album} setData={setData} />
+
         <h1 className="header_head">TOP 100 Songs </h1>
         <div className="song_list">
           {data?.slice(0, showMore).map(
@@ -55,18 +57,12 @@ const Body = () => {
               });
               return (
                 <div className="album-entry">
-                  {/* <div className="overlayer">
-              <i className="far fa-play-circle"></i>
-            </div> */}
                   <div className="container">
                     <img
                       src={entry["im:image"][2].label}
                       alt="album-thumbnail"
                       className="album-thumbnail"
                     />
-                    {/* <div  className={clicked ?"fav_clicked" :"fav_icon" }>
-                <MdFavorite onClick={()=> {setClicked(!clicked)}} />
-                </div> */}
                     {isFavorite ? (
                       <div className="heart_icon">
                         <img
@@ -93,6 +89,7 @@ const Body = () => {
                   </div>
                   <div className="description">
                     <a
+                      key={entry.id.label}
                       href={entry.link.attributes.href}
                       target="_blank"
                       rel="noreferrer"
@@ -109,13 +106,13 @@ const Body = () => {
       {showMore <= data?.length && (
         <StyledPaginateButton data-testid="pagination">
           <button
-            onClick={() => {
-              setShowMore((prevValue) => prevValue + 8);
-            }}
-            type="button"
             className="show-more"
+            type="button"
+            onClick={() => {
+              setShowMore((prevValue) => prevValue + 12);
+            }}
           >
-            Load More
+            See more{" "}
           </button>
         </StyledPaginateButton>
       )}
@@ -128,13 +125,15 @@ export default Body;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+
   .header_head {
     color: white;
     padding: 1rem;
+    margin-left: 30px;
   }
 
   .song_list {
-    padding: 6%;
+    padding: 3%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
@@ -158,10 +157,11 @@ const Container = styled.div`
     text-decoration: none;
     color: whitesmoke;
     margin: 10px 0;
-    font-family: sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.9rem;
     padding: 10px 0;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
   }
   .album-entry {
     display: flex;
@@ -171,11 +171,14 @@ const Container = styled.div`
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
       rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
       rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    background: radial-gradient(transparent, rgba(0, 0, 0, 1));
     background-color: rgb(32, 87, 100);
+    background: radial-gradient(transparent, rgba(0, 0, 0, 0.5));
     font-family: sans-serif;
     font-weight: 600;
     border-radius: 1rem;
+    /* &:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+      } */
   }
   .container {
     position: relative;
@@ -205,15 +208,15 @@ const StyledPaginateButton = styled.div`
   align-items: center;
   justify-content: center;
   .show-more {
-    background-color: red;
     color: white;
+    background-color: #f53b77;
     border: none;
     border-radius: 2rem;
     padding: 1rem;
-    width: 10rem;
+    width: 8rem;
     cursor: pointer;
     font-family: sans-serif;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 1rem;
   }
 `;

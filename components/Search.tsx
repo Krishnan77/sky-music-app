@@ -9,10 +9,14 @@ const Search = () => {
     <Container>
       <div className="song_list">
         {album?.entry
-          ?.filter((a: any) =>
-            a["im:artist"].label.toLowerCase().includes(searchValue)
+          ?.filter(
+            (a: any) =>
+              a["im:artist"].label.toLowerCase().includes(searchValue) ||
+              a["im:name"].label.toLowerCase().includes(searchValue) ||
+              a["category"]["attributes"].term
+                .toLowerCase()
+                .includes(searchValue)
           )
-          .slice(0, 20)
           .map((p: any) => (
             <div className="album-entry">
               <img
@@ -20,9 +24,15 @@ const Search = () => {
                 className="album-thumbnail"
                 src={p["im:image"][2].label}
               />
-              <a href={p.link.attributes.href} target="_blank" rel="noreferrer">
-                {p.title.label}
-              </a>
+              <div className="description">
+                <a
+                  href={p.link.attributes.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {p.title.label}
+                </a>
+              </div>
             </div>
           ))}
       </div>
@@ -35,11 +45,17 @@ export default Search;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  .header_head {
+    color: white;
+    padding: 1rem;
+  }
+
   .song_list {
     padding: 6%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
+
     @media screen and (max-width: 900px) {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -59,7 +75,8 @@ const Container = styled.div`
     text-decoration: none;
     color: whitesmoke;
     margin: 10px 0;
-    font-family: sans-serif;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
     font-weight: 600;
     font-size: 0.9rem;
     padding: 10px 0;
@@ -67,15 +84,39 @@ const Container = styled.div`
   .album-entry {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    overflow: hidden;
     align-items: center;
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
       rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
       rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    background: radial-gradient(transparent, rgba(0, 0, 0, 1));
     background-color: rgb(32, 87, 100);
+    background: radial-gradient(transparent, rgba(0, 0, 0, 0.5));
     font-family: sans-serif;
     font-weight: 600;
     border-radius: 1rem;
+  }
+  .container {
+    position: relative;
+    width: 100%;
+  }
+  .description {
+    padding: 15px;
+  }
+`;
+const StyledPaginateButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .show-more {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    padding: 1rem;
+    width: 10rem;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
   }
 `;

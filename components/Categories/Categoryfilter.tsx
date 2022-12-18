@@ -38,7 +38,7 @@ const Categoryfilter = ({ filter, setData }: any) => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 6,
           slidesToScroll: 3,
           infinite: true,
           dots: true,
@@ -47,16 +47,16 @@ const Categoryfilter = ({ filter, setData }: any) => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 4,
           slidesToScroll: 2,
-          initialSlide: 2,
+          initialSlide: 4,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 3,
+          slidesToScroll: 3,
         },
       },
     ],
@@ -64,7 +64,7 @@ const Categoryfilter = ({ filter, setData }: any) => {
 
   return (
     <>
-      <Container>
+      <Container data-testid="category-section">
         <h1 className="header_head">Genre</h1>
         <div className="top-albums">
           <Slider {...settings}>
@@ -102,10 +102,12 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
   }
   .header_head {
     color: white;
     padding: 1rem;
+    margin-left: 30px;
   }
   .genre-button {
     cursor: pointer;
@@ -122,8 +124,15 @@ const Container = styled.div`
     background-color: #0e0d0d;
 
     @media screen and (max-width: 900px) {
-      font-size: 0.5rem;
-      white-space: pre-wrap;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+      @media screen and (max-width: 900px) {
+
+    justify-content: center;
+    align-items: center;
+    }
     }
   }
 `;

@@ -22,10 +22,12 @@ const Navbar = () => {
           />
         </Link>
       </div>
+      <div className="sky-plus"> Go Ad Free</div>
+      <div className="sky-plus">Get Sky plus</div>
       <div className="avatar">
         <a href="#">
           <CgProfile />
-          <span>Krishnan</span>
+          <span>Sign in</span>
         </a>
       </div>
     </Container>
@@ -43,6 +45,26 @@ const Container = styled.div`
   top: 0;
   transition: 0.3s ease-in-out;
   background-color: "rgba(0,0,0,0.7)";
+  font-family: sans-serif;
+  .sky-plus {
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    border: solid 1px red;
+    border-radius: 2rem;
+    padding: 0.6rem;
+    cursor: pointer;
+    background-color: #f53b77;
+    @media screen and (max-width: 900px) {
+      width: 20%;
+      font-size: 5px;
+    }
+    @media screen and (max-width: 500px) {
+      width: 2%;
+      font-size: 5px;
+    }
+  }
   .search__bar {
     background-color: white;
     width: 30%;
@@ -82,7 +104,7 @@ const Container = styled.div`
       gap: 0.5rem;
       text-decoration: none;
       color: white;
-      font-weight: bold;
+      font-weight: 600;
       svg {
         font-size: 1.3rem;
         background-color: #282828;
