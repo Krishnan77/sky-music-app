@@ -1,10 +1,10 @@
 import React from "react";
-import { AiFillClockCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { RootState, SongProps } from "../../shared/store/collection-slice";
 
 const NewRelease = () => {
-  const { album } = useSelector((state: any) => state.songReducer) || [];
+  const { album } = useSelector((state: RootState | any) => state.songReducer) || [];
 
   const dateCalculator = (sortdate: any) => {
     var result = sortdate.slice(-4);
@@ -50,7 +50,7 @@ const NewRelease = () => {
         </div>
       </div>
       <div className="tracks">
-        {sortedArray?.slice(0, 10).map((item: any, index: any) => (
+        {sortedArray?.slice(0, 10).map((item: SongProps, index: number) => (
           <div className="row">
             <div className="col">
               <span key={item.id["label"]}>{index + 1}</span>

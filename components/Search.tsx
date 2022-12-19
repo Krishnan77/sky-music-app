@@ -1,23 +1,24 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { RootState, SongProps } from "../shared/store/collection-slice";
 
 const Search = () => {
-  const { album } = useSelector((state: any) => state.songReducer) || [];
-  const searchValue = useSelector((state: any) => state.songReducer.searchVal);
+  const { album } = useSelector((state: RootState | any) => state.songReducer) || [];
+  const searchValue = useSelector((state: RootState | any) => state.songReducer.searchVal);
   return (
     <Container>
       <div className="song_list">
         {album?.entry
           ?.filter(
-            (a: any) =>
-              a["im:artist"].label.toLowerCase().includes(searchValue) ||
-              a["im:name"].label.toLowerCase().includes(searchValue) ||
+            (a: SongProps) =>
+              a["im:artist"].label.toLowerCase().includes(searchValue.toLowerCase()) ||
+              a["im:name"].label.toLowerCase().includes(searchValue.toLowerCase()) ||
               a["category"]["attributes"].term
                 .toLowerCase()
-                .includes(searchValue)
+                .includes(searchValue.toLowerCase())
           )
-          .map((p: any) => (
+          .map((p: SongProps) => (
             <div className="album-entry">
               <img
                 alt="album-thumbnail"

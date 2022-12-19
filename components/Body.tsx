@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-// import { RootState } from "../shared/store";
 import { useDispatch, useSelector } from "react-redux";
 import Categoryfilter from "./Categories/Categoryfilter";
 import styled from "styled-components";
-import { MdFavorite } from "react-icons/md";
-import { albumActions } from "../shared/store/collection-slice";
+import { albumActions, RootState } from "../shared/store/collection-slice";
 import Favorite from "./Favorites/Favorite";
 import OldSongs from "./Song types/OldSongs";
 
 const Body = () => {
   const { album, loading } =
-    useSelector((state: any) => state.songReducer) || [];
+    useSelector((state: RootState | any) => state.songReducer) || [];
   const mainSongData = album?.entry;
   const [data, setData] = useState(mainSongData);
   const [showMore, setShowMore] = useState(12);
@@ -18,11 +16,8 @@ const Body = () => {
 
   const dispatch = useDispatch();
 
-  const favList = useSelector((state: any) => state.songReducer.favorite);
+  const favList = useSelector((state: RootState | any) => state.songReducer.favorite);
 
-  // useEffect(() => {
-  //   setData(mainSongData);
-  // }, []);
   return (
     <>
       <Container>
@@ -111,7 +106,7 @@ const Body = () => {
               setShowMore((prevValue) => prevValue + 12);
             }}
           >
-            See more{" "}
+            See more
           </button>
         </StyledPaginateButton>
       )}

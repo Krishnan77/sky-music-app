@@ -5,9 +5,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import Container from "../../styles/maincard.style";
+import { RootState } from "../../shared/store/collection-slice";
 
 const Favorite = () => {
-  const favList = useSelector((state: any) => state.songReducer.favorite);
+  const favList = useSelector((state: RootState | any) => state.songReducer.favorite);
 
   return (
     <>
@@ -54,7 +55,7 @@ const Favorite = () => {
                 </div>
               );
             }
-          )}{" "}
+          )}
         </div>
       </Container>
     </>

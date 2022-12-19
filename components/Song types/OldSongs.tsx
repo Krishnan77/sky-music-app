@@ -1,18 +1,17 @@
 import React from "react";
-import { AiFillClockCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
+import { RootState, SongProps } from "../../shared/store/collection-slice";
 import Container from "../../styles/maincard.style";
 
 const OldSongs = () => {
-  const { album } = useSelector((state: any) => state.songReducer) || [];
+  const { album } = useSelector((state: RootState | any) => state.songReducer) || [];
 
   const dateCalculator = (sortdate: any) => {
     var result = sortdate.slice(-4);
     return result;
   };
 
-  const releaseDate = album?.entry?.map((item: any) => {
+  const releaseDate = album?.entry?.map((item: SongProps) => {
     return {
       ...item,
       releasedDate: dateCalculator(item["im:releaseDate"]["attributes"].label),
@@ -67,7 +66,7 @@ const OldSongs = () => {
               </div>
             );
           }
-        )}{" "}
+        )}
       </div>
     </Container>
   );

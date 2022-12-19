@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { albumActions, fetchSongs } from "../shared/store/collection-slice";
+import { albumActions } from "../shared/store/collection-slice";
 import Link from "next/link";
 
 const Navbar = () => {

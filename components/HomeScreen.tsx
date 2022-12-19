@@ -2,7 +2,6 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import Body from "./Body";
-import styled from "styled-components";
 import { Container } from "../styles/card.style";
 
 const HomeScreen = () => {
@@ -17,9 +16,6 @@ const HomeScreen = () => {
           </div>
         </div>
       </div>
-      {/* <div className="footer">
-      <Footer />
-      </div> */}
     </Container>
   );
 };

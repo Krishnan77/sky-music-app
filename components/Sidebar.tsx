@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
-import { IoLibrary } from "react-icons/io5";
 import Link from "next/link";
 import { BiPodcast } from "react-icons/bi";
 import { GiLoveSong } from "react-icons/gi";

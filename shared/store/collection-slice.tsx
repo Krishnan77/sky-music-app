@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, AsyncThunk } from "@reduxjs/toolkit";
 import colletionData from "../../pages/api/collection";
 import { configureStore } from "@reduxjs/toolkit";
 
-interface SongProps {
+export interface SongProps {
   "im:name": {
     label: string;
   };
@@ -192,8 +192,8 @@ const songSlice = createSlice({
   },
 });
 export const albumActions = songSlice.actions;
-// export default songSlice.reducer;
 
+export type RootState = ReturnType<typeof getStore>
 export let store = null;
 
 export default function getStore(incomingPreloadState?: any) {

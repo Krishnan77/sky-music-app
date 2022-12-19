@@ -10,8 +10,6 @@ import getStore, { fetchSongs } from "../shared/store/collection-slice";
 import { Container } from "../styles/card.style";
 
 const search = () => {
-  const { album } = useSelector((state: any) => state.songReducer) || [];
-  const searchValue = useSelector((state: any) => state.songReducer.searchVal);
   return (
     <div>
       <Head>
