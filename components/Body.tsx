@@ -9,21 +9,20 @@ import Favorite from "./Favorites/Favorite";
 import OldSongs from "./Song types/OldSongs";
 
 const Body = () => {
-  const [data, setData] = useState([]);
-  const [showMore, setShowMore] = useState(12);
-  const [clicked, setClicked] = useState(false);
-
   const { album, loading } =
     useSelector((state: any) => state.songReducer) || [];
   const mainSongData = album?.entry;
+  const [data, setData] = useState(mainSongData);
+  const [showMore, setShowMore] = useState(12);
+  const [clicked, setClicked] = useState(false);
 
   const dispatch = useDispatch();
 
   const favList = useSelector((state: any) => state.songReducer.favorite);
 
-  useEffect(() => {
-    setData(mainSongData);
-  }, [mainSongData]);
+  // useEffect(() => {
+  //   setData(mainSongData);
+  // }, []);
   return (
     <>
       <Container>
